@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>汪海的博客</title>
+  
+  <subtitle>记录学习与生活</subtitle>
+  <link href="https://lalalalade.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://lalalalade.github.io/"/>
+  <updated>2020-12-27T14:48:21.074Z</updated>
+  <id>https://lalalalade.github.io/</id>
+  
+  <author>
+    <name>汪海</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>归并排序</title>
+    <link href="https://lalalalade.github.io/2020/12/27/hello-world/"/>
+    <id>https://lalalalade.github.io/2020/12/27/hello-world/</id>
+    <published>2020-12-27T14:38:01.396Z</published>
+    <updated>2020-12-27T14:48:21.074Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>归并排序是基于分治法的一种算法。</p><a id="more"></a><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> l,<span class="keyword">int</span> m, <span class="keyword">int</span> r, <span class="keyword">int</span> tmp[])</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> pb = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> p1 = l,p2 = m+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(p1 &lt;= m &amp;&amp; p2 &lt;= r)&#123;</span><br><span class="line"><span class="keyword">if</span>(a[p1] &lt; a[p2])&#123;</span><br><span class="line">tmp[pb++] = a[p1++];</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">tmp[pb++] = a[p2++];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span>(p1 &lt;= m)&#123;</span><br><span class="line">tmp[pb++] = a[p1++];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span>(p2 &lt;= r)&#123;</span><br><span class="line">tmp[pb++] = a[p2++]; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;r-l+<span class="number">1</span>; i++)&#123;</span><br><span class="line">a[l+i] = tmp[i];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;归并排序&quot;&gt;&lt;a href=&quot;#归并排序&quot; class=&quot;headerlink&quot; title=&quot;归并排序&quot;&gt;&lt;/a&gt;归并排序&lt;/h2&gt;&lt;p&gt;归并排序是基于分治法的一种算法。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="排序" scheme="https://lalalalade.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
+  
+</feed>
