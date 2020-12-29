@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>0-1背包问题</title>
-    <url>/2020/12/29/0-1%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h2><p>有N种物品，每种只有一个。第i中物品的体积为Vi，重量为Wi,选择一些物品装到一个容量为C的背包，使得背包内的物品再总体积不超过M的前提下重量尽量大，1&lt;=N&lt;=100,1&lt;=Vi&lt;=M&lt;=10000,1&lt;=Wi&lt;=1000000。</p>
-<a id="more"></a>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>用dp[i][j]表示取前i种物品，使它们总体积不超过j的最优取法取得的价值总和。要求dp[N][C]。<br>递推：dp[i][j] = max(dp[i-1][j],dp[i-1][j-w[i]]+v[i]),前提j&gt;=w,取或不取第i种物品，两者选优。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[N+<span class="number">1</span>][C+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="comment">//填表</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;=N; i++)&#123;</span><br><span class="line">	<span class="keyword">for</span>(j=<span class="number">1</span>; j&lt;=C; j++)&#123; <span class="comment">//j的所有取值范围 </span></span><br><span class="line">		<span class="keyword">if</span>(j&lt;w[i])&#123; <span class="comment">//可装重量小于第i件物品的重量 </span></span><br><span class="line">			dp[i][j] = dp[i<span class="number">-1</span>][j]; <span class="comment">//不装第i件物品 </span></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;  <span class="comment">//考虑装不装第i件物品 </span></span><br><span class="line">			<span class="keyword">int</span> x = dp[i<span class="number">-1</span>][j];  <span class="comment">//不装第i件物品 </span></span><br><span class="line">			<span class="keyword">int</span> y = dp[i<span class="number">-1</span>][j-w[i]] + v[i];  <span class="comment">//装第i件物品 </span></span><br><span class="line">			dp[i][j] = x&lt;y ? y : x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>采用滚动数组优化</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[C+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;=N; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(j=C; j&gt;=<span class="number">1</span>; j--)&#123;</span><br><span class="line">			<span class="keyword">if</span>(j &gt;= w[i])&#123;</span><br><span class="line">				dp[j] = max(dp[j],dp[j-w[i]]+v[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>-动态规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态规划及数字三角形</title>
+    <title>动态规划</title>
     <url>/2020/12/29/DP/</url>
     <content><![CDATA[<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="基本思想："><a href="#基本思想：" class="headerlink" title="基本思想："></a>基本思想：</h3><p>问题的最优解如果可以由<strong>子问题</strong>的最优解推导得到，则可以先求解子问题的最优解，在构造原问题的最优解；若子问题有较多的<strong>重复出现</strong>，则可以自底向上从最终子问题向原问题逐步求解。</p>
 <a id="more"></a>
@@ -31,28 +14,17 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MaxSum</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(maxSum[i][j] != <span class="number">-1</span>)&#123;   <span class="comment">//表示已经计算过这个值了，可以直接取 不用重复计算</span></span><br><span class="line">		<span class="keyword">return</span> maxSum[i][j];</span><br><span class="line">	&#125;</span><br><span class="line"> 	<span class="keyword">if</span>(i == n)&#123;     <span class="comment">//最后一行 </span></span><br><span class="line">		maxSum[i][j] = D[i][j];</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> x = MaxSum(i+<span class="number">1</span>,j);</span><br><span class="line">		<span class="keyword">int</span> y = MaxSum(i+<span class="number">1</span>,j+<span class="number">1</span>);</span><br><span class="line">		maxSum[i][j] = max(x,y)+D[i][j];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maxSum[i][j];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;=n; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">1</span>; j&lt;=i; j++)&#123;</span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;D[i][j];</span><br><span class="line">			maxSum[i][j] = <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <p>递推法</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)&#123;   <span class="comment">//初始化最后一行 </span></span><br><span class="line">	maxSum[n][i] = D[n][i];</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>; i&gt;=<span class="number">1</span>; i--)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=i; j++)&#123;</span><br><span class="line">		maxSum[i][j] = max(maxSum[i+<span class="number">1</span>][j],maxSum[i+<span class="number">1</span>][j+<span class="number">1</span>]) + D[i][j];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>递归法是<strong>自顶向下</strong>，而动态规划(递推法)是<strong>自底向上</strong>。对于递推法我们还可以进行<strong>空间优化</strong>，将maxSum数组改造为一维数组，再优化，maxSum = D[n],即用D数组最后一行存放结果。</p>
-]]></content>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>递归法是<strong>自顶向下</strong>，而动态规划(递推法)是<strong>自底向上</strong>。对于递推法我们还可以进行<strong>空间优化</strong>，将maxSum数组改造为一维数组，再优化，maxSum = D[n],即用D数组最后一行存放结果。</p>
+<h3 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h3><p>有N种物品，每种只有一个。第i中物品的体积为Vi，重量为Wi,选择一些物品装到一个容量为C的背包，使得背包内的物品再总体积不超过M的前提下重量尽量大，1&lt;=N&lt;=100,1&lt;=Vi&lt;=C&lt;=10000,1&lt;=Wi&lt;=1000000。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>用dp[i][j]表示取前i种物品，使它们总体积不超过j的最优取法取得的价值总和。要求dp[N][C]。<br>递推：dp[i][j] = max(dp[i-1][j],dp[i-1][j-w[i]]+w[i]),前提j&gt;=w,取或不取第i种物品，两者选优。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[N+<span class="number">1</span>][C+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="comment">//填表</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;=N; i++)&#123;</span><br><span class="line">	<span class="keyword">for</span>(j=<span class="number">1</span>; j&lt;=C; j++)&#123; <span class="comment">//j的所有取值范围 </span></span><br><span class="line">		<span class="keyword">if</span>(j&lt;v[i])&#123; <span class="comment">//可装体积小于第i件物品的体积 </span></span><br><span class="line">			dp[i][j] = dp[i<span class="number">-1</span>][j]; <span class="comment">//不装第i件物品 </span></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;  <span class="comment">//考虑装不装第i件物品 </span></span><br><span class="line">			<span class="keyword">int</span> x = dp[i<span class="number">-1</span>][j];  <span class="comment">//不装第i件物品 </span></span><br><span class="line">			<span class="keyword">int</span> y = dp[i<span class="number">-1</span>][j-w[i]] + w[i];  <span class="comment">//装第i件物品 </span></span><br><span class="line">			dp[i][j] = x&lt;y ? y : x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>采用滚动数组优化</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[C+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;=N; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(j=C; j&gt;=<span class="number">1</span>; j--)&#123;</span><br><span class="line">			<span class="keyword">if</span>(j &gt;= v[i])&#123;</span><br><span class="line">				dp[j] = max(dp[j],dp[j-w[i]] + w[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
       </categories>
       <tags>
         <tag>-动态规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>选择排序和冒泡排序</title>
-    <url>/2020/12/28/SelectionSort/</url>
-    <content><![CDATA[<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序属于<strong>蛮力法</strong>，开始的时候，扫描整个列表，找到它的<strong>最小元素</strong>，然后和<strong>第一个元素</strong>交换，将最小元素放在它最终位置上。然后从第二个元素扫描数组，找到后n-1个元素中的最小元素，和第二个元素交换，n-1遍以后排好序。键的<strong>交换次数</strong>仅为O(n),时间复杂度为O(n2)。</p>
-<a id="more"></a>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">SelectionSort(<span class="keyword">int</span> a[])&#123;</span><br><span class="line">    <span class="keyword">int</span> min;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n<span class="number">-1</span>; i++)&#123;</span><br><span class="line">        min = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>; j&lt;n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j] &lt; a[min])&#123;</span><br><span class="line">                min = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(&amp;a[i],&amp;a[min]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序<strong>比较相邻元素</strong>，如果它们逆序的话交换它们的位置。重复多次以后，最大的元素沉到最底部。第二遍让第二大元素沉下去。直到n-1遍以后，排序完成。键的交换次数<strong>取决于</strong>输入的数，最坏和平均时间复杂度为O(n2)。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">BubbleSort(<span class="keyword">int</span> a[])&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n<span class="number">-1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n<span class="number">-1</span>-i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>] &lt; a[j])&#123;</span><br><span class="line">                swap(&amp;a[j],&amp;a[j+<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>排序</tag>
       </tags>
   </entry>
   <entry>
@@ -104,6 +76,35 @@
       </categories>
       <tags>
         <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>选择排序和冒泡排序</title>
+    <url>/2020/12/28/SelectionSort/</url>
+    <content><![CDATA[<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序属于<strong>蛮力法</strong>，开始的时候，扫描整个列表，找到它的<strong>最小元素</strong>，然后和<strong>第一个元素</strong>交换，将最小元素放在它最终位置上。然后从第二个元素扫描数组，找到后n-1个元素中的最小元素，和第二个元素交换，n-1遍以后排好序。键的<strong>交换次数</strong>仅为O(n),时间复杂度为O(n2)。</p>
+<a id="more"></a>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">SelectionSort(<span class="keyword">int</span> a[])&#123;</span><br><span class="line">    <span class="keyword">int</span> min;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n<span class="number">-1</span>; i++)&#123;</span><br><span class="line">        min = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>; j&lt;n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j] &lt; a[min])&#123;</span><br><span class="line">                min = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(&amp;a[i],&amp;a[min]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序<strong>比较相邻元素</strong>，如果它们逆序的话交换它们的位置。重复多次以后，最大的元素沉到最底部。第二遍让第二大元素沉下去。直到n-1遍以后，排序完成。键的交换次数<strong>取决于</strong>输入的数，最坏和平均时间复杂度为O(n2)。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">BubbleSort(<span class="keyword">int</span> a[])&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n<span class="number">-1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n<span class="number">-1</span>-i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>] &lt; a[j])&#123;</span><br><span class="line">                swap(&amp;a[j],&amp;a[j+<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贪心算法和硬币问题</title>
+    <url>/2020/12/29/%E6%9C%80%E4%BC%98%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/</url>
+    <content><![CDATA[<h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>把整个问题分成多个步骤，在每个步骤都选取<strong>当前步骤</strong>的最优方案，直到所有步骤结束<br>在每一步都不考虑对后续步骤的影响，在后续的步骤中也不改变前面的选择。所以这是局部最优，<strong>不一定</strong>达到整体最优。</p>
+<a id="more"></a>
+<h3 id="硬币问题"><a href="#硬币问题" class="headerlink" title="硬币问题"></a>硬币问题</h3><p>问题描述：某人带着1元，2元，5元三种面值的硬币去购物，硬币的数量不限，他需要支付M元，问怎样支付才能使硬币数量最少？</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i,money;</span><br><span class="line">	<span class="keyword">int</span> ans[NUM] = &#123;<span class="number">0</span>&#125;; <span class="comment">//记录各种硬币的数量</span></span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;money;</span><br><span class="line">	<span class="keyword">for</span>(i=NUM<span class="number">-1</span>; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">		ans[i] = money/value[i];</span><br><span class="line">		money -= ans[i] * value[i];</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;NUM; i++)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;value[i]&lt;&lt;<span class="string">&quot;元硬币数&quot;</span>&lt;&lt;ans[i]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>-贪心</tag>
       </tags>
   </entry>
 </search>
